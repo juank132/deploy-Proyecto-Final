@@ -21,7 +21,7 @@
 //   pet_size,
 //   petId,
 //   month,
-  
+
 // }) => {
 //   const [isFavorite, setIsFavorite] = useState(false);
 //   const [listImg, setListImg] = useState(initialListImg || []);
@@ -106,13 +106,13 @@
 //             Subir foto
 //           </label>
 //           <ImageUploader petId={petId} onImageUpload={handleImageUpload} listImg={listImg} />
-          
+
 //             <div className="flex items-center">
 //               <Link href="#" >
 //                 Eliminar foto
 //               </Link>
 //             </div>
-          
+
 //         </div>
 //       </ModalMascotaDetail>
 //     </>
@@ -143,7 +143,7 @@
 //   pet_size,
 //   petId,
 //   month,
-  
+
 // }) => {
 //   const [isFavorite, setIsFavorite] = useState(false);
 //   const [listImg, setListImg] = useState(initialListImg || []);
@@ -242,13 +242,13 @@
 //             Subir foto
 //           </label>
 //           <ImageUploader petId={petId} onImageUpload={handleImageUpload} listImg={listImg} />
-          
+
 //             <div className="flex items-center">
 //               <Link href="#" >
 //                 Eliminar foto
 //               </Link>
 //             </div>
-          
+
 //         </div>
 //       </ModalMascotaDetail>
 //     </>
@@ -284,7 +284,7 @@ export const MascotaDetail: React.FC<IMascotas & { petId: string }> = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const [listImg, setListImg] = useState(initialListImg || []);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const userRole = useUserRole(); 
+  const userRole = useUserRole();
 
   useEffect(() => {
     const favoritePets = JSON.parse(localStorage.getItem('favoritePets') || '{}');
@@ -339,26 +339,29 @@ export const MascotaDetail: React.FC<IMascotas & { petId: string }> = ({
                     height={300}
                     className="object-cover w-full h-full"
                   />
-                  <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300">
-                    <FontAwesomeIcon icon={faCamera} className="text-white opacity-0 group-hover:opacity-100 transition duration-300" size="2x" />
-                  </div>
+                  {userRole !== 'User' && (
+
+                    <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-0 group-hover:bg-opacity-50 transition duration-300">
+                      <FontAwesomeIcon icon={faCamera} className="text-white opacity-0 group-hover:opacity-100 transition duration-300" size="2x" />
+                    </div>
+                  )}
                 </div>
               ))}
             </Carousel>
 
             {userRole !== 'Shelter' && (
-            <div className="absolute top-2 right-2">
-              <FavoriteStar
-                isFavorite={isFavorite}
-                onToggleFavorite={handleToggleFavorite}
-                isLoggedIn
-                petId={petId}/>
-            </div>
+              <div className="absolute top-2 right-2">
+                <FavoriteStar
+                  isFavorite={isFavorite}
+                  onToggleFavorite={handleToggleFavorite}
+                  isLoggedIn
+                  petId={petId} />
+              </div>
 
-)}
+            )}
 
 
-            
+
           </div>
         </div>
         <div className="col-span-1 px-5 shadow-xl m-5">
@@ -380,6 +383,7 @@ export const MascotaDetail: React.FC<IMascotas & { petId: string }> = ({
           <p className="font-light">{description}</p>
         </div>
       </div>
+      {userRole !== 'User' && (
       <ModalMascotaDetail isOpen={isModalOpen} onClose={handleCloseModal}>
         <h2 className="text-xl mb-4 text-center">Editar fotos</h2>
         <div className="flex flex-col  space-y-2 items-center">
@@ -394,6 +398,7 @@ export const MascotaDetail: React.FC<IMascotas & { petId: string }> = ({
           </div>
         </div>
       </ModalMascotaDetail>
+)}
     </>
   );
 };

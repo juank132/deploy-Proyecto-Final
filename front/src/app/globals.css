@@ -34,9 +34,13 @@
   }
 }
 
-body {
+
+html, body {
   background-color: #F3F4F6;
+  height: 100%;
+  margin: 0;
 }
+
 
 /* animation skeleton */
 @keyframes pulse {
