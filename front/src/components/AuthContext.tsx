@@ -1,11 +1,11 @@
-import jwt from 'jsonwebtoken';
+import { decodeJwt } from "@/utils/decodeJwt";
 
 const getUserRole = () => {
   const accessToken = localStorage.getItem('accessToken');
 
   if (accessToken) {
     try {
-      const decodedToken = jwt.decode(accessToken) as { [key: string]: any } | null;
+      const decodedToken = decodeJwt(accessToken) as { [key: string]: any } | null;
       return decodedToken?.role; 
     } catch (error) {
       console.error('Error al decodificar el accessToken:', error);
